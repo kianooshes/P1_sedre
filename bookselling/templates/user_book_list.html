@@ -1,0 +1,17 @@
+
+  <h1>My Books</h1>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Action</th>
+    </tr>
+    {% for user_book in user_books %}
+    <tr>
+      <td>{{ user_book.id }}</td>
+      <td>{{ user_book.book.title }}</td>
+      <td>{{ user_book.book.author }}</td>
+      <td><a href="{% url 'return_book' user_book.id %}">Return</a></td>
+    </tr>
+    {% endfor %}
+  </table>
