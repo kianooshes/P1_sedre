@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Books</title>
+</head>
+<body>
+    <h1>Available Books</h1>
+    <ul id="bookList">
+        <!-- Books will be dynamically added here -->
+    </ul>
+
+    <script>
+        fetch('/books/')
+            .then(response => response.json())
+            .then(data => {
+                const bookList = document.getElementById('bookList');
+                data.forEach(book => {
+                    const li = document.createElement('li');
+                    li.textContent = book.title;
+                    bookList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching books:', error));
+    </script>
+</body>
+</html>

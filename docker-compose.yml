@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  store_of_book:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/store_of_book
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - store_of_book_network
+      - nginx_network
+    depends_on:
+      - booksell_postgresql
+
   booksell_postgresql:
     image: postgres:16
     container_name: booksell_postgresql
@@ -18,5 +33,9 @@ volumes:
     external: true
 
 networks:
+  store_of_book_network:
+    external: true
   booksell_network:
+    external: true
+  nginx_network:
     external: true

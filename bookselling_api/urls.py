@@ -1,10 +1,10 @@
-from django.urls import path,include
-from .views import BookList,UserBookList
-
-app_name = "api"
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path("booklist/",BookList.as_view(),name="booklist"),
-    path("userbooklist/",UserBookList.as_view(),name="userbooklist"),
+    path("books/", views.BookList.as_view()),
+    path("books/purchase/<int:book_id>/", views.PurchaseBook.as_view()),
+    path("books/user/", views.UserBookList.as_view()),
+    path("books/return/<int:user_book_id>/", views.ReturnBook.as_view()),
+    path("changebalance/", views.UpdateMultipleUserBalances.as_view()),
 ]
-
