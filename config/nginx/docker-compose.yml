@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - store_files_volume:/store_of_book/bookselling_api/templates
+    networks:
+      - nginx_network
+
+volumes:
+  store_files_volume:
+    external: true
+networks:
+  nginx_network:
+    external: true
