@@ -23,12 +23,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("bookselling.urls")),
     path("api-auth/", include("rest_framework.urls")),
-    path("api/", include("bookselling_api.urls")),
+    path("api/", include("bookselling_api.urls", namespace="bookselling_api")),
     path(
         "api/token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"
     ),
     path(
         "api/token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"
     ),
-    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
 ]

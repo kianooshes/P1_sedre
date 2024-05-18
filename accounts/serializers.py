@@ -37,7 +37,7 @@ class UserLoginSerializer(serializers.Serializer):
             user = User.objects.filter(username=username).first()
 
             if user and user.check_password(password):
-                # If user exists and password is correct, generate JWT token
+
                 refresh = RefreshToken.for_user(user)
                 return {
                     "username": user.username,

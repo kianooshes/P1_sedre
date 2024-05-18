@@ -8,6 +8,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 # admin.site.unregister(User)
 
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -50,12 +51,13 @@ class UserChangeForm(forms.ModelForm):
         model = User
         fields = ["email", "password", "is_active", "is_admin"]
 
+
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ['username', 'email', 'is_admin', 'balance']
-    search_fields = ['username', 'email']
+    list_display = ["username", "email", "is_admin", "balance"]
+    search_fields = ["username", "email"]
     list_filter = ["username"]
     fieldsets = []
     # add_fieldsets = []

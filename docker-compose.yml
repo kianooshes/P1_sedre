@@ -11,13 +11,12 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - store_of_book_network
-      - nginx_network
+      - shared_network
     depends_on:
       - booksell_postgresql
 
   booksell_postgresql:
-    image: postgres:16
+    image: registry.sedrehgroup.ir/postgres:latest
     container_name: booksell_postgresql
     volumes:
       - booksell_postgresql:/var/lib/postgresql/data
@@ -26,16 +25,12 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - booksell_network
+      - shared_network
 
 volumes:
   booksell_postgresql:
     external: true
 
 networks:
-  store_of_book_network:
-    external: true
-  booksell_network:
-    external: true
-  nginx_network:
+  shared_network:
     external: true

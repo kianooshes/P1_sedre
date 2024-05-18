@@ -64,7 +64,7 @@ ROOT_URLCONF = "store_of_book.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "bookselling" / "templates"],
+        "DIRS": [BASE_DIR / "bookselling_api" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,11 +85,11 @@ WSGI_APPLICATION = "store_of_book.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "booksell_postgresql",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }

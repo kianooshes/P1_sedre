@@ -3,6 +3,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import BookSerializer, UserBookSerializer
+from rest_framework.renderers import TemplateHTMLRenderer
 from bookselling.models import Book, UserBook
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.db import transaction
@@ -10,8 +11,17 @@ from accounts.models import User
 
 
 class BookList(ListAPIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = "books/booklist_api.html"
     serializer_class = BookSerializer
-    queryset = Book.objects.filter(owner=None)
+
+    def get_queryset(self):
+        return Book.objects.filter(owner=None)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({"books": serializer.data})
 
 
 class PurchaseBook(CreateAPIView):
@@ -76,10 +86,17 @@ class ReturnBook(DestroyAPIView):
 
 class UserBookList(ListAPIView):
     permission_classes = [IsAuthenticated]
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = "userbooks/userbooks_api.html"
     serializer_class = UserBookSerializer
 
     def get_queryset(self):
         return UserBook.objects.filter(user=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({"user_books": serializer.data})
 
 
 class UpdateMultipleUserBalances(APIView):
