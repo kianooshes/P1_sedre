@@ -11,4 +11,4 @@ COPY . /store_of_book
 RUN pip install --upgrade pip
 RUN pip install -r /store_of_book/requirements/requirements.txt
 
-CMD ["gunicorn", "--chdir", "store_of_book", "--bind", ":8000", "store_of_book.wsgi:application"]
+CMD ["gunicorn", "--chdir", "store_of_book", "--bind", "0.0.0.0:8000", "store_of_book.wsgi:application"]

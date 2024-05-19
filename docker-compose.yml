@@ -8,12 +8,11 @@ services:
     volumes:
       - .:/store_of_book
     restart: always
-    ports:
-      - "8000:8000"
     networks:
       - shared_network
     depends_on:
       - booksell_postgresql
+    env_file: .env
 
   booksell_postgresql:
     image: registry.sedrehgroup.ir/postgres:latest
@@ -26,6 +25,17 @@ services:
       - "5432:5432"
     networks:
       - shared_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - shared_network
+    depends_on:
+      - store_of_book
 
 volumes:
   booksell_postgresql:
